@@ -197,7 +197,10 @@ def independence_reject_hypothesis(test_stats, critical):
 def correlation_check(data, alpha=0.05, method="pearson"):
     _corr = (
         data.corrwith(
-            pd.Series(data.index, index=data.index),
+            pd.Series(
+                range(len(data.index)) if method == "spearman" else data.index,
+                index=data.index,
+            ),
             method=method,
         )
         .rename("Correlation")
